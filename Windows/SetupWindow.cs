@@ -98,5 +98,14 @@ namespace BeatSaberGameSwitcher
         MessageBox.Show("First assign the correct game folders", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
     }
+
+    private void SetupWindow_Load(object sender, EventArgs e)
+    {
+      gameVanillaPath = Properties.Settings.Default.GameVanillaPath;
+      gameModdedPath = Properties.Settings.Default.GameModdedPath;
+      // Update text inputs
+      this.vanillaPathTB.Text = gameVanillaPath;
+      this.moddedPathTB.Text = gameModdedPath;
+    }
   }
 }

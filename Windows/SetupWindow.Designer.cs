@@ -28,13 +28,14 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupWindow));
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.vanillaPathTB = new System.Windows.Forms.TextBox();
-      this.moddedPathTB = new System.Windows.Forms.TextBox();
-      this.vanillaPathL = new System.Windows.Forms.Label();
-      this.moddedPathL = new System.Windows.Forms.Label();
-      this.vanillaPathBtn = new System.Windows.Forms.Button();
       this.moddedPathBtn = new System.Windows.Forms.Button();
+      this.vanillaPathBtn = new System.Windows.Forms.Button();
+      this.moddedPathL = new System.Windows.Forms.Label();
+      this.vanillaPathL = new System.Windows.Forms.Label();
+      this.moddedPathTB = new System.Windows.Forms.TextBox();
+      this.vanillaPathTB = new System.Windows.Forms.TextBox();
       this.saveBtn = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
@@ -54,43 +55,16 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Beat Saber paths";
       // 
-      // vanillaPathTB
+      // moddedPathBtn
       // 
-      this.vanillaPathTB.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.vanillaPathTB.Location = new System.Drawing.Point(6, 36);
-      this.vanillaPathTB.Name = "vanillaPathTB";
-      this.vanillaPathTB.ReadOnly = true;
-      this.vanillaPathTB.Size = new System.Drawing.Size(231, 26);
-      this.vanillaPathTB.TabIndex = 0;
-      // 
-      // moddedPathTB
-      // 
-      this.moddedPathTB.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.moddedPathTB.Location = new System.Drawing.Point(6, 85);
-      this.moddedPathTB.Name = "moddedPathTB";
-      this.moddedPathTB.ReadOnly = true;
-      this.moddedPathTB.Size = new System.Drawing.Size(231, 26);
-      this.moddedPathTB.TabIndex = 1;
-      // 
-      // vanillaPathL
-      // 
-      this.vanillaPathL.AutoSize = true;
-      this.vanillaPathL.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.vanillaPathL.Location = new System.Drawing.Point(6, 16);
-      this.vanillaPathL.Name = "vanillaPathL";
-      this.vanillaPathL.Size = new System.Drawing.Size(167, 17);
-      this.vanillaPathL.TabIndex = 2;
-      this.vanillaPathL.Text = "Beat Saber path (vanilla)";
-      // 
-      // moddedPathL
-      // 
-      this.moddedPathL.AutoSize = true;
-      this.moddedPathL.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.moddedPathL.Location = new System.Drawing.Point(6, 65);
-      this.moddedPathL.Name = "moddedPathL";
-      this.moddedPathL.Size = new System.Drawing.Size(180, 17);
-      this.moddedPathL.TabIndex = 3;
-      this.moddedPathL.Text = "Beat Saber path (modded)";
+      this.moddedPathBtn.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.moddedPathBtn.Location = new System.Drawing.Point(243, 85);
+      this.moddedPathBtn.Name = "moddedPathBtn";
+      this.moddedPathBtn.Size = new System.Drawing.Size(100, 26);
+      this.moddedPathBtn.TabIndex = 5;
+      this.moddedPathBtn.Text = "Search";
+      this.moddedPathBtn.UseVisualStyleBackColor = true;
+      this.moddedPathBtn.Click += new System.EventHandler(this.moddedPathBtn_Click);
       // 
       // vanillaPathBtn
       // 
@@ -103,16 +77,43 @@
       this.vanillaPathBtn.UseVisualStyleBackColor = true;
       this.vanillaPathBtn.Click += new System.EventHandler(this.vanillaPathBtn_Click);
       // 
-      // moddedPathBtn
+      // moddedPathL
       // 
-      this.moddedPathBtn.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.moddedPathBtn.Location = new System.Drawing.Point(243, 85);
-      this.moddedPathBtn.Name = "moddedPathBtn";
-      this.moddedPathBtn.Size = new System.Drawing.Size(100, 26);
-      this.moddedPathBtn.TabIndex = 5;
-      this.moddedPathBtn.Text = "Search";
-      this.moddedPathBtn.UseVisualStyleBackColor = true;
-      this.moddedPathBtn.Click += new System.EventHandler(this.moddedPathBtn_Click);
+      this.moddedPathL.AutoSize = true;
+      this.moddedPathL.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.moddedPathL.Location = new System.Drawing.Point(6, 65);
+      this.moddedPathL.Name = "moddedPathL";
+      this.moddedPathL.Size = new System.Drawing.Size(180, 17);
+      this.moddedPathL.TabIndex = 3;
+      this.moddedPathL.Text = "Beat Saber path (modded)";
+      // 
+      // vanillaPathL
+      // 
+      this.vanillaPathL.AutoSize = true;
+      this.vanillaPathL.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.vanillaPathL.Location = new System.Drawing.Point(6, 16);
+      this.vanillaPathL.Name = "vanillaPathL";
+      this.vanillaPathL.Size = new System.Drawing.Size(167, 17);
+      this.vanillaPathL.TabIndex = 2;
+      this.vanillaPathL.Text = "Beat Saber path (vanilla)";
+      // 
+      // moddedPathTB
+      // 
+      this.moddedPathTB.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.moddedPathTB.Location = new System.Drawing.Point(6, 85);
+      this.moddedPathTB.Name = "moddedPathTB";
+      this.moddedPathTB.ReadOnly = true;
+      this.moddedPathTB.Size = new System.Drawing.Size(231, 26);
+      this.moddedPathTB.TabIndex = 1;
+      // 
+      // vanillaPathTB
+      // 
+      this.vanillaPathTB.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.vanillaPathTB.Location = new System.Drawing.Point(6, 36);
+      this.vanillaPathTB.Name = "vanillaPathTB";
+      this.vanillaPathTB.ReadOnly = true;
+      this.vanillaPathTB.Size = new System.Drawing.Size(231, 26);
+      this.vanillaPathTB.TabIndex = 0;
       // 
       // saveBtn
       // 
@@ -132,10 +133,13 @@
       this.ClientSize = new System.Drawing.Size(373, 174);
       this.Controls.Add(this.saveBtn);
       this.Controls.Add(this.groupBox1);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.Name = "SetupWindow";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "BSGS | Set up";
+      this.Load += new System.EventHandler(this.SetupWindow_Load);
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.ResumeLayout(false);

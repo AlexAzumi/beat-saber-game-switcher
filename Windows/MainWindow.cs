@@ -18,6 +18,7 @@ namespace BeatSaberGameSwitcher
     Regex moddedPathRegex = new Regex(@"(.*)(Beat Saber_modded)$");
     // Variables
     private SetupWindow setupWindow;
+    private AboutWindow aboutWindow;
     private string gameVanillaPath;
     private string gameModdedPath;
     private Version currentVersion;
@@ -160,6 +161,7 @@ namespace BeatSaberGameSwitcher
         return;
       }
 
+      // Change current version
       if (currentVersion == Version.Vanilla)
       {
         Console.WriteLine("Switching to Modded game...");
@@ -228,12 +230,24 @@ namespace BeatSaberGameSwitcher
 
       Console.WriteLine(Properties.Settings.Default.GameVanillaPath);
       Console.WriteLine(Properties.Settings.Default.GameModdedPath);
-
       // Update labels
       currentVersionL.Text = currentVersion.ToString();
       switchGameBtn.Text = String.Format("Switch to {0}", targetVersion == Version.Vanilla ? "Modded" : "Vanilla");
       // Show successfull message
-      MessageBox.Show(String.Format("The game switch to the {0} version correctly", targetVersion.ToString()), "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      MessageBox.Show(String.Format("The game switched to the {0} version correctly", targetVersion.ToString()), "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void changeGamePathsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      setupWindow = new SetupWindow();
+      setupWindow.FormClosed += new FormClosedEventHandler(OnSetupClosed);
+      setupWindow.ShowDialog();
+    }
+
+    private void aboutThisProgramToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      aboutWindow = new AboutWindow();
+      aboutWindow.ShowDialog();
     }
   }
 }
