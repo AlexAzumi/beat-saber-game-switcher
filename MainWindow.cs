@@ -164,6 +164,10 @@ namespace BeatSaberGameSwitcher
       }
     }
 
+    /// <summary>
+    /// Changes the game current version
+    /// </summary>
+    /// <param name="targetVersion">Version that wants to be switched to</param>
     private void ChangeGameVersion(Version targetVersion)
     {
       string basePath = Path.Combine(baseDirectory.ToString(), GAME_FOLDER);
