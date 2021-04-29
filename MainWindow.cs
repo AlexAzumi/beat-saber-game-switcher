@@ -14,7 +14,6 @@ namespace BeatSaberGameSwitcher
     private string GAME_FOLDER_VANILLA = "Beat Saber_vanilla";
     private string GAME_FOLDER_MODDED = "Beat Saber_modded";
     // Regex
-    Regex originalPathRegex = new Regex(@"(.*)(Beat Saber)$");
     Regex vanillaPathRegex = new Regex(@"(.*)(Beat Saber_vanilla)$");
     Regex moddedPathRegex = new Regex(@"(.*)(Beat Saber_modded)$");
     // Variables
@@ -93,25 +92,37 @@ namespace BeatSaberGameSwitcher
       string vanillaPath = Path.Combine(baseDirectory.ToString(), GAME_FOLDER_VANILLA);
       string moddedPath = Path.Combine(baseDirectory.ToString(), GAME_FOLDER_MODDED);
 
+      bool vanillaPathExists = false;
+
       if (Directory.Exists(vanillaPath))
       {
         Console.WriteLine("Vanilla game: Backed up");
         // Override configuration
         Properties.Settings.Default.GameVanillaPath = vanillaPath;
+        Properties.Settings.Default.GameModdedPath = basePath;
         Properties.Settings.Default.Save();
         gameVanillaPath = vanillaPath;
+        gameModdedPath = basePath;
+
+        vanillaPathExists = true;
       }
-      else if (Directory.Exists(moddedPath))
+
+      if (Directory.Exists(moddedPath))
       {
         Console.WriteLine("Modded game: Backed up");
         // Override configuration
-        Properties.Settings.Default.GameVanillaPath = moddedPath;
+        Properties.Settings.Default.GameModdedPath = moddedPath;
+        Properties.Settings.Default.GameVanillaPath = vanillaPathExists ? gameVanillaPath : basePath;
         Properties.Settings.Default.Save();
         gameModdedPath = moddedPath;
+        gameVanillaPath = Properties.Settings.Default.GameVanillaPath;
       }
 
       bool isVanillaBackedup = vanillaPathRegex.IsMatch(gameVanillaPath);
       bool isModdedBackedup = moddedPathRegex.IsMatch(gameModdedPath);
+
+      Console.WriteLine("Vanilla path: " + gameVanillaPath + " | Backed up: " + isVanillaBackedup);
+      Console.WriteLine("Modded path: " + gameModdedPath + " | Backed up: " + isModdedBackedup);
 
       if (Directory.Exists(basePath) && isVanillaBackedup)
       {
@@ -123,7 +134,8 @@ namespace BeatSaberGameSwitcher
         currentVersion = Version.Vanilla;
         switchGameBtn.Text = "Switch to Modded";
       }
-      else
+
+      if (!Directory.Exists(basePath))
       {
         if (Directory.Exists(vanillaPath) || Directory.Exists(moddedPath))
         {
@@ -186,17 +198,37 @@ namespace BeatSaberGameSwitcher
         else
         {
           Directory.Move(basePath, backupTargetPath);
-          Properties.Settings.Default.GameModdedPath = backupTargetPath;
+          if (targetVersion == Version.Vanilla)
+          {
+            Properties.Settings.Default.GameModdedPath = backupTargetPath;
+            gameModdedPath = backupTargetPath;
+          }
+          else
+          {
+            Properties.Settings.Default.GameVanillaPath = backupTargetPath;
+            gameVanillaPath = backupTargetPath;
+          }
         }
       }
 
-      string targetPath = targetVersion == Version.Vanilla ? vanillaPath : moddedPath;
+      string targetPath = targetVersion == Version.Vanilla ? gameVanillaPath : gameModdedPath;
       // Rename modded path to base path
       Directory.Move(targetPath, basePath);
       // Update settings
       currentVersion = targetVersion;
-      Properties.Settings.Default[targetVersion == Version.Vanilla ? "GameVanillaPath" : "GameModdedPath"] = basePath;
+      if (targetVersion == Version.Vanilla)
+      {
+        Properties.Settings.Default.GameVanillaPath = basePath;
+      }
+      else
+      {
+        Properties.Settings.Default.GameModdedPath = basePath;
+      }
       Properties.Settings.Default.Save();
+
+      Console.WriteLine(Properties.Settings.Default.GameVanillaPath);
+      Console.WriteLine(Properties.Settings.Default.GameModdedPath);
+
       // Update labels
       currentVersionL.Text = currentVersion.ToString();
       switchGameBtn.Text = String.Format("Switch to {0}", targetVersion == Version.Vanilla ? "Modded" : "Vanilla");
