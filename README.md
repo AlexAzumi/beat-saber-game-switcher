@@ -24,7 +24,7 @@ In my case, both folders are stored in `E:\Steam\steamapp\common`, my modded one
 The initial names are not that important but I highly sujest that at least one folder is called `Beat Saber`, as the *active* game instance.
 
 Now save the config and the main window will appear, the first time you run it, there's high change of getting a empty button
-(well, not exactly empty, but with only a middle dash), if that's your case, close the program and open it again.
+(well, not exactly empty, but with only a hyphen), if that's your case, close the program and open it again.
 Now it should be functional.
 
 The process is simple, you have your vanilla instance active, just press the button and then your modded instance will be active and the vanilla one will be backed up, and viceversa.
